@@ -66,7 +66,6 @@
 
 <script>
   // Array para armazenar os dados
-  //let dataList = [];
  let listaClientes = [];
 
   // Função para adicionar um novo item à lista
@@ -84,7 +83,7 @@
                     <td>${item.name}</td>
                     <td>${item.email}</td>
                     <td>
-                      <button type="button" class="btn btn-danger btn-sm" onclick="deleteItem('${item.email}')">Excluir</button>
+                      <button type="button" class="btn btn-danger btn-sm" onclick="excluirItem('${item.email}')">Excluir</button>
                     </td>
                   </tr>`;
       tableBody.innerHTML += row;
