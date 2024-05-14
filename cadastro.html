@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDN</title>
+  <link rel="stylesheet" href="styless.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      .crud-form {
+        margin-bottom: 20px;
+      }
+    </style>
+</head>
+<body>
+  <header>
+    <h1>SDN - Sistema de nutricionista</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cadastro.html">Cadastrar Paciente</a></li>
+        <li><a href="planejamento_paciente">Planejamento do paciente</a></li>
+        <li><a href="#">Sobre</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <h2>CRUD com Bootstrap e JavaScript</h2>
+      <form id="crudForm" class="crud-form">
+        <div class="form-group">
+          <label for="name">Nome:</label>
+          <input type="text" class="form-control" id="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+      </form>
+    
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Os dados inseridos serão exibidos aqui -->
+        </tbody>
+      </table>
+    </div>
+    
+  </main>
+
+  <footer>
+    <p>&copy; 2024 SDN - Sistema de nutriInfo</p>
+  </footer>
+<!-- Bootstrap JS e jQuery (necessário para Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  // Array para armazenar os dados
+  let dataList = [];
+
+  // Função para adicionar um novo item à lista
+  function addItem(name, email) {
+    dataList.push({ name, email });
+    updateTable();
+  }
+
+  // Função para atualizar a tabela
+  function updateTable() {
+    const tableBody = document.getElementById('tableBody');
+    tableBody.innerHTML = '';
+    dataList.forEach(item => {
+      const row = `<tr>
+                    <td>${item.name}</td>
+                    <td>${item.email}</td>
+                    <td>
+                      <button type="button" class="btn btn-danger btn-sm" onclick="deleteItem('${item.email}')">Excluir</button>
+                    </td>
+                  </tr>`;
+      tableBody.innerHTML += row;
+    });
+  }
+
+  // Função para excluir um item da lista
+  function deleteItem(email) {
+    dataList = dataList.filter(item => item.email !== email);
+    updateTable();
+  }
+
+  // Evento de envio do formulário
+  document.getElementById('crudForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    addItem(name, email);
+    // Limpar campos do formulário
+    document.getElementById('name').value = '';
+    document.getElementById('email').value = '';
+  });
+</script>
+
+
+</body>
+</html>
