@@ -20,7 +20,7 @@
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="cadastro.html">Cadastrar Paciente</a></li>
-        <li><a href="planejamento_paciente">Planejamento do paciente</a></li>
+        <li><a href="#">Planejamento do paciente</a></li>
         <li><a href="#">Sobre</a></li>
       </ul>
     </nav>
@@ -28,7 +28,7 @@
 
   <main>
     <div class="container">
-      <h2>CRUD com Bootstrap e JavaScript</h2>
+      <h2>Cadastrar paciente</h2>
       <form id="crudForm" class="crud-form">
         <div class="form-group">
           <label for="name">Nome:</label>
@@ -67,19 +67,20 @@
 
 <script>
   // Array para armazenar os dados
-  let dataList = [];
+  //let dataList = [];
+  let listaClientes = [];
 
   // Função para adicionar um novo item à lista
-  function addItem(name, email) {
-    dataList.push({ name, email });
-    updateTable();
+  function adicionarItem(name, email) {
+    listaClientes.push({ name, email });
+    atualizarTabela();
   }
 
   // Função para atualizar a tabela
-  function updateTable() {
+  function atualizarTabela() {
     const tableBody = document.getElementById('tableBody');
     tableBody.innerHTML = '';
-    dataList.forEach(item => {
+    listaClientes.forEach(item => {
       const row = `<tr>
                     <td>${item.name}</td>
                     <td>${item.email}</td>
@@ -92,9 +93,9 @@
   }
 
   // Função para excluir um item da lista
-  function deleteItem(email) {
-    dataList = dataList.filter(item => item.email !== email);
-    updateTable();
+  function excluirItem(email) {
+    listaClientes = listaClientes.filter(item => item.email !== email);
+    atualizarTabela();
   }
 
   // Evento de envio do formulário
@@ -102,7 +103,8 @@
     event.preventDefault();
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
-    addItem(name, email);
+    adicionarItem(name, email);
+    
     // Limpar campos do formulário
     document.getElementById('name').value = '';
     document.getElementById('email').value = '';
