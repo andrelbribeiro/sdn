@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste de API</title>
+</head>
+<body>
+
+<h1>Dados da API:</h1>
+<pre id="api-data"></pre>
+
+<script>
+  const apiUrl = 'https://gold-anemone-wig.cyclic.app/receitas';
+
+  fetch(apiUrl)
+    .then(response => {
+      // Verifica se a resposta da requisição foi bem-sucedida (status 200)
+      if (!response.ok) {
+        throw new Error('Erro ao acessar a API: ' + response.status);
+      }
+      // Parseia a resposta JSON
+      return response.json();
+    })
+    .then(data => {
+      // Manipula os dados recebidos da API
+      console.log('Dados da API:', data);
+      // Exibe os dados na página HTML
+      document.getElementById('api-data').textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(error => {
+      // Trata os erros de requisição
+      console.error('Erro ao acessar a API:', error);
+      // Exibe o erro na página HTML
+      document.getElementById('api-data').textContent = 'Erro ao acessar a API: ' + error.message;
+    });
+</script>
+
+</body>
+</html>
