@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nutrInfo</title>
+  <link rel="stylesheet" href="styless.css">
+</head>
+<body>
+  <header>
+    <h1>nutrInfo - Sistema para nutricionistas</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cadastro.html">Cadastrar Paciente</a></li>
+        <li><a href="planejamento_paciente.html">Planejamento do paciente</a></li>
+        <li><a href="produto1.html">Produto</a></li>
+        <li><a href="produto2.html">Produto por categoria</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Dados do Produto</h1>
+    <div id="info-produto"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 - Sistema nutrInfo</p>
+  </footer>
+
+  <script>
+    const apiUrl = 'https://world.openfoodfacts.org/api/v0/product/737628064502.json';
+  
+    fetch(apiUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro ao acessar a API: ' + response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Dados da API:', data);
+        // Exibe os dados do produto na página HTML
+        const productInfoElement = document.getElementById('info-produto');
+        productInfoElement.innerHTML = `
+          <p>Nome do Produto: ${data.product.product_name}</p>
+          <p>Marca: ${data.product.brands}</p>
+          <p>Categoria: ${data.product.categories}</p>
+          <p>Quantidade: ${data.product.quantity}</p>
+          <p>Ingredientes: ${data.product.ingredients_text}</p>
+        `;
+      })
+      .catch(error => {
+        console.error('Erro ao acessar a API:', error);
+        // Exibe mensagem de erro na página HTML
+        document.getElementById('info-produto').textContent = 'Erro ao acessar a API: ' + error.message;
+      });
+  </script>
+</body>
+</html>
